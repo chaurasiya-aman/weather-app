@@ -1,75 +1,51 @@
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import "./SearchBox.css";
 import { useState } from "react";
+import "./SearchBox.css";
 
-export default function SearchBox({ getWeatherInfo, setError, error }) {
-  let [city, setCity] = useState("");
+const API_URL = import.meta.env.VITE_API_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
-  const API_URL = import.meta.env.VITE_API_URL;
-  const API_KEY = import.meta.env.VITE_API_KEY;
+export default function SearchBox({ getWeatherInfo, setError }) {
+  const [city, setCity] = useState("");
 
-  let fetchWeatherInfo = async () => {
+  const fetchWeather = async () => {
     try {
-      let res = await fetch(
-        `${API_URL}?q=${city}&appid=${API_KEY}&units=metric`,
-      );
-
-      if (!res.ok) {
-        throw new Error("City not found");
-      }
-
-      let json_res = await res.json();
-      let result = {
-        city: city,
-        temp: json_res.main.temp,
-        temp_max: json_res.main.temp_max,
-        temp_min: json_res.main.temp_min,
-        humidity: json_res.main.humidity,
-        feels_like: json_res.main.feels_like,
-        description: json_res.weather[0].description,
-        wind_speed: json_res.wind.speed,
-      };
+      const res = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}&units=metric`);
+      if (!res.ok) throw new Error("City not found");
+      const data = await res.json();
+      getWeatherInfo({
+        city: data.name,
+        temp: Math.round(data.main.temp),
+        temp_max: Math.round(data.main.temp_max),
+        temp_min: Math.round(data.main.temp_min),
+        humidity: data.main.humidity,
+        feels_like: Math.round(data.main.feels_like),
+        description: data.weather[0].description,
+        wind_speed: data.wind.speed,
+      });
       setError(false);
-      getWeatherInfo(result);
-    } catch (e) {
+    } catch {
       setError(true);
     }
   };
 
-  let inputHandler = (event) => {
-    setCity(event.target.value);
-  };
-
-  let searchHandler = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    fetchWeatherInfo();
-    setCity("");
+    if (city.trim()) fetchWeather();
   };
 
   return (
     <div className="SearchBox">
-      <form action="" onSubmit={searchHandler}>
-        <TextField
-          id="city"
-          label="City Name"
-          onChange={inputHandler}
-          variant="outlined"
+      <form className="SearchBox-form" onSubmit={handleSubmit}>
+        <input
+          className="SearchBox-input"
+          type="text"
+          placeholder="Search city..."
           value={city}
-          required
+          onChange={(e) => setCity(e.target.value)}
         />
-        <br />
-        <br />
-        <Button
-          variant="contained"
-          size="small"
-          type="submit"
-          sx={{backgroundColor: "#000080" }}
-          endIcon={<SearchOutlinedIcon />}
-        >
+        <button className="SearchBox-btn" type="submit">
           Search
-        </Button>
+        </button>
       </form>
     </div>
   );

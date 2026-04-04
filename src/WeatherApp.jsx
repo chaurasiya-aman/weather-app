@@ -1,10 +1,10 @@
+import { useState } from "react";
 import SearchBox from "./SearchBox";
 import InfoBox from "./InfoBox";
 import "./WeatherApp.css";
-import { useState } from "react";
 
 export default function WeatherApp() {
-  let [weatherInfo, setWeatherInfo] = useState({
+  const [weatherInfo, setWeatherInfo] = useState({
     city: "Delhi",
     temp: 12,
     temp_max: 18,
@@ -15,22 +15,14 @@ export default function WeatherApp() {
     wind_speed: 1.0,
   });
 
-  let [error, setError] = useState(false);
-
-  let getWeatherInfo = (result) => {
-    setWeatherInfo(result);
-  };
+  const [error, setError] = useState(false);
 
   return (
     <div className="WeatherApp">
-      <>
-        <h2 style={{color: "#000080" }}>
-          <b>Weather Widget</b>
-        </h2>
-        <SearchBox getWeatherInfo={getWeatherInfo} setError={setError} error={error} />
-        {error && <h2 style={{ color: "red" }}>City Not found</h2>}
-        {!error && <InfoBox info={weatherInfo} />}
-      </>
+      <h2 className="WeatherApp-title">Weather Widget</h2>
+      <SearchBox getWeatherInfo={setWeatherInfo} setError={setError} error={error} />
+      {error && <p className="WeatherApp-error">City not found. Please try again.</p>}
+      {!error && <InfoBox info={weatherInfo} />}
     </div>
   );
 }

@@ -1,7 +1,106 @@
 .InfoBox {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    margin: 5px;
-    padding: 10px;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #161b22;
+  border: 1px solid #30363d;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.InfoBox-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.InfoBox-body {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.InfoBox-city {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #e6edf3;
+}
+
+.InfoBox-description {
+  font-size: 0.88rem;
+  color: #8b949e;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+}
+
+.InfoBox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.InfoBox-stat {
+  background: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.InfoBox-stat-label {
+  font-size: 0.72rem;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 500;
+}
+
+.InfoBox-stat-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e6edf3;
+}
+
+.InfoBox-stat-value.accent-blue {
+  color: #58a6ff;
+}
+
+.InfoBox-stat-value.accent-red {
+  color: #f78166;
+}
+
+.InfoBox-stat-value.accent-teal {
+  color: #56d364;
+}
+
+.InfoBox-stat-value.accent-gray {
+  color: #a371f7;
+}
+
+.InfoBox-feels {
+  font-size: 0.85rem;
+  color: #8b949e;
+  padding-top: 4px;
+  border-top: 1px solid #30363d;
+}
+
+.InfoBox-feels span {
+  color: #e6edf3;
+  font-weight: 500;
 }

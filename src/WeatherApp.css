@@ -1,4 +1,31 @@
 .WeatherApp {
-  text-align: center;
-  padding: 15px;
+  width: 100%;
+  max-width: 480px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.WeatherApp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #58a6ff, #a371f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.WeatherApp-error {
+  color: #f78166;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding: 10px 20px;
+  background: rgba(247, 129, 102, 0.1);
+  border: 1px solid rgba(247, 129, 102, 0.3);
+  border-radius: 8px;
 }
